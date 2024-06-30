@@ -1,0 +1,36 @@
+{{template "base" .}}
+{{define "title"}}404 | {{end}}
+{{define "header"}}
+<h1><a
+    {{with .OriginURL}}
+    href="{{.}}"
+    {{else}}
+    href="/"
+    {{end}}
+    rel="noreferrer noopener"
+>Axel Ariel Saravia</a></h1>
+{{end}}
+{{define "main"}}
+<div>
+    <h2>Error 404</h2>
+    <h3>Page Not Found</h3>
+</div>
+{{end}}
+{{define "style"}}
+<style>
+body>header {
+    display:flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1ch;
+}
+main div {
+    padding: 2ch 1ch;
+    line-height: 1.5;
+}
+h2 {
+    font-size: 4rem;
+}
+</style>
+{{end}}

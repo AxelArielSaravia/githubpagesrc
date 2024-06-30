@@ -1,0 +1,13 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#3f3b3b"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="icon"
+>
+    <path d="M6 13h12"></path>
+    <path d="m5 20 7-16 7 16"></path>
+</svg>

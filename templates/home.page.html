@@ -1,0 +1,130 @@
+{{template "base" .}}
+{{define "main"}}
+<div class="home">
+    <h1>
+        <span class="name">Axel Ariel<span>
+        <span class="surname">Saravia</span>
+    </h1>
+    <h2>Developer | Music Composer</h2>
+    <nav>
+        <h3>Index</h3>
+        <ul>
+            <li><a
+                rel="noreferrer noopener"
+                href="{{.OriginURL}}dev/"
+            >Dev projects</a></li>
+            <li><a
+                rel="noreferrer noopener"
+                href="{{.OriginURL}}music/"
+            >Musical works</a></li>
+        </ul>
+    </nav>
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon lucide-mail"
+        >
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+        <small>
+            <a rel="noreferrer noopener"
+                target="_blank"
+                href="mailto:axelarielsaravia@gmail.com"
+            >axelarielsaravia@gmail.com</a>
+        </small>
+    </p>
+</div>
+{{end}}
+{{define "style"}}
+<style>
+.home {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-inline: var(--padding);
+    gap: 2ch;
+}
+.home h1 {
+    font-size: 3rem;
+}
+.home h1 span {
+    display: block;
+}
+
+.home nav {
+    font-size: 1rem;
+    line-height: 2;
+}
+.home nav ul {
+    list-style-type: square;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    flex-direction: column;
+    border-top: 3px solid var(--color-primary);
+}
+
+.home nav li {
+    border-bottom: 3px solid var(--color-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .home nav li:has( a:hover) {
+        color:var(--color-link);
+    }
+}
+
+@media not ((hover: hover) and (pointer: fine)) {
+    .home nav li {
+        color:var(--color-link);
+    }
+}
+
+.home p {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1ch;
+}
+.home p .icon {
+    width: 2ch;
+}
+/*Navigation Transition*/
+@view-transition {
+    navigation: auto;
+}
+::view-transition-group(root) {
+    animation-duration: 0.3s;
+}
+@keyframes move-out {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(100%, 100%);
+    }
+}
+@keyframes move-in {
+    from {
+        transform: translate(-100%, -100%);
+    }
+    to {
+        transform: translate(0, 0);
+    }
+}
+::view-transition-old(root) {
+    animation: 0.4s ease-in both move-out;
+
+}
+::view-transition-new(root) {
+    animation: 0.4s ease-in both move-in;
+}
+</style>
+{{end}}

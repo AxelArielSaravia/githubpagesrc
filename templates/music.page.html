@@ -1,0 +1,533 @@
+{{template "base" .}}
+{{define "title"}}Musical Works | {{end}}
+{{define "media"}}
+<meta property="og:url" content="{{.OriginURL}}music">
+<meta property="og:description" content="Hi, I'm am Axel, a Developer and Music Composer. This are my Musical Works.">
+{{end}}
+{{define "header"}}
+<h1><a
+    {{with .OriginURL}}
+    href="{{.}}"
+    {{else}}
+    href="/"
+    {{end}}
+    rel="noreferrer noopener"
+>Axel Ariel Saravia</a></h1>
+{{end}}
+{{define "main"}}
+<div class="musical-works">
+    <h2>Musical Works</h2>
+    <section class="2023">
+        <h3 class="title"><time datetime="2023">2023</time></h3>
+        <article>
+            <h4>inSets</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>web music, interactive, generative</span>
+            </p>
+            <p class="row">
+                <span>links:</span>
+                <span>
+                    <a rel="noreferrer noopener"
+                        href="https://insets-music.web.app"
+                        target="_blank"
+                        title="inSets"
+                    >[web]</a>
+                    <a rel="noreferrer noopener"
+                        href="https://github.com/AxelArielSaravia/insets"
+                        target="_blank"
+                        title="repository"
+                    >[Github]</a>
+                </span>
+            </p>
+        </article>
+    </section>
+    <section class="2020">
+        <h3 class="title"><time datetime="2020">2020</time></h3>
+        <article>
+            <h4>Five Pieces for Eight Instruments</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Small ensamble</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Flute, Oboe, Clarinet in Bb, Horn in F, Violin, Viola, and Cello</span>
+            </p>
+            <p class="row">
+                <span>links:</span>
+                <span>
+                    <a
+                        rel="noreferrer noopener"
+                        href="scores/Saravia, A. A. - 5 piezas para 8 instrumentos (2020).pdf"
+                        title="score"
+                        target="_blank"
+                    >[score]</a>
+                </span>
+            </p>
+        </article>
+        <article>
+            <h4>Sonata for Flute and Cello</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Chamber</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Flute and Cello</span>
+            </p>
+            <p class="row">
+                <span>date:</span>
+                <span><time datetime="2020-07-01">July 1</time></span>
+            </p>
+        </article>
+        <article>
+            <h4>Piece for Violin and Snare</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Chamber</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Violin and Snare</span>
+            </p>
+            <p class="row">
+                <span>date:</span>
+                <span><time datetime="2020-02-21">February 21</time></span>
+            </p>
+        </article>
+        <article>
+            <h4>Tres piezas muy cortas</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Electronics</span>
+            </p>
+            <p class="row">
+                <span>links:</span>
+            <p>
+        </article>
+    </section>
+    <section class="2019">
+        <h3 class="title"><time datetime="2019">2019</time></h3>
+        <article>
+            <h4>Berrinches en el 3er cuarto</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Chamber</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Sopranino Recorder, Violin, and Guitar</span>
+            </p>
+            <p class="row">
+                <span>date:</span>
+                <span><time datetime="2019-07-11">July 11</time></span>
+            </p>
+            <p class="row">
+                <span>links:</span>
+                <span>
+                    <a rel="noreferrer noopener"
+                        href="scores/Saravia, A. A. - Berrinches en el 3er cuarto (11-07-2019).pdf"
+                        target="_blank"
+                    >[score]</a>
+                </span>
+            </p>
+        </article>
+        <article>
+            <h4>Quintet, Decomposing Prokofiev</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Chamber</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Oboe, Clarinet in Bb, Violin, Viola, and Contrabass</span>
+            </p>
+            <p class="row">
+                <span>links:</span>
+                <span>
+                    <a rel="noreferrer noopener"
+                        href="scores/Saravia, A. A. - Quintet, Decomposing Prokofiev (17-11-2019).pdf"
+                        target="_blank"
+                    >[score]</a>
+                </span>
+            </p>
+        </article>
+        <article>
+            <h4>Five Short Pieces for Piano</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Solo</span>
+            </p>
+            <p class="row">
+                <span>instrument:</span>
+                <span>Piano</span>
+            </p>
+            <p class="row">
+                <span>links:</span>
+                <span>
+                    <a rel="noreferrer noopener"
+                        href="scores/Saravia, A. A. - 5 piezas cortas para piano.pdf"
+                        target="_blank"
+                    >[score]</a>
+                </span>
+            </p>
+        </article>
+        <article>
+            <h4>Pieza No.305</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Collaborative String Quartet</span>
+            </p>
+            <p class="row">
+                <span>instrumets:</span>
+                <span>2 Violins, Viola, and Cello</span>
+            </p>
+            <p class="row">
+                <span>with:</span>
+                <span>J. Hernan Escudero</span>
+            </p>
+        </article>
+        <article>
+            <h4>Recontrucción</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Collaborative, Wind Quintet</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Flute, Oboe, Clarinet in Bb, Horn in F, and Bassoon</span>
+            </p>
+            <p class="row">
+                <span>with:</span>
+                <span>
+                    J. Hernan Escudero,
+                    Agustina Gordillo,
+                    Matías Jara,
+                    Facundo D. Llaiquel,
+                    Juan I. Sabatino,
+                    Juan I. Ubino
+                </span>
+            </p>
+        </article>
+        <article>
+            <h4>Seppuku</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Collaborative, Chamber</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Flute, Clarinet in Bb, Violin, Viola, Cello, and Piano</span>
+            </p>
+            <p class="row">
+                <span>with:</span>
+                <span>
+                    J. Hernan Escudero,
+                    Agustina Gordillo,
+                    Matías Jara,
+                    Facundo D. Llaiquel,
+                    Juan I. Sabatino,
+                    Juan I. Ubino
+                </span>
+            </p>
+        </article>
+        <article>
+            <h4>Kamikaze</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Collaborative, Chamber</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>2 Violins</span>
+            </p>
+            <p class="row">
+                <span>with:</span>
+                <span>
+                    J. Hernan Escudero,
+                    Agustina Gordillo,
+                    Matías Jara,
+                    Facundo D. Llaiquel,
+                    Juan I. Sabatino,
+                    Juan I. Ubino
+                </span>
+            </p>
+        </article>
+    </section>
+    <section class="2018">
+        <h3 class="title"><time datetime="2018">2018</time></h3>
+        <article>
+            <h4>Estudio I</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Eletronics</span>
+            </p>
+            <p class="row">
+                <span>date:</span>
+                <span><time datetime="2018-11-09">November 9</time></span>
+            </p>
+            <p class="row">
+                <span>links:</span>
+            </p>
+        </article>
+        <article>
+            <h4>Prelude in Antique Style</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Solo</span>
+            </p>
+            <p class="row">
+                <span>instrument:</span>
+                <span>Piano</span>
+            </p>
+            <p class="row">
+                <span>date:</span>
+                <span><time datetime="2018-04-29">April 29</time></span>
+            </p>
+        </article>
+        <article>
+            <h4>A piece for Clarinet</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Solo</span>
+            </p>
+            <p class="row">
+                <span>instrument:</span>
+                <span>Clarinet in Bb</span>
+            </p>
+            <p class="row">
+                <span>date:</span>
+                <span><time datetime="2018-06-28">June 28</time></span>
+            </p>
+        </article>
+        <article>
+            <h4>Piece for Piano</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Solo</span>
+            </p>
+            <p class="row">
+                <span>instrument:</span>
+                <span>Piano</span>
+            </p>
+        </article>
+        <article>
+            <h4>Humoresque</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Solo</span>
+            </p>
+            <p class="row">
+                <span>instrument:</span>
+                <span>Piano</span>
+            </p>
+        </article>
+        <article>
+            <h4>dcbga/</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Collaborative, Chamber</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Flute, Trumpet in C, and Guitar</span>
+            </p>
+            <p class="row">
+                <span>with:</span>
+                <span>Martín Dalmasso</span>
+            </p>
+        </article>
+        <article>
+            <h4>Pirámide</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Collaborative, Solo</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Flute</span>
+            </p>
+            <p class="row">
+                <span>with:</span>
+                <span>
+                    J. Hernan Escudero,
+                    Matías Jara,
+                    Facundo D. Llaiquel,
+                    Federico G. Nurry Recabarren,
+                    Juan I. Sabatino,
+                    Juan I. Ubino
+                </span>
+            </p>
+        </article>
+        <article>
+            <h4>Fragmento a su Presencia</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Collaborative, Solo</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Soprano</span>
+            </p>
+            <p class="row">
+                <span>with:</span>
+                <span>
+                    J. Hernan Escudero,
+                    Matías Jara,
+                    Facundo D. Llaiquel,
+                    Federico G. Nurry Recabarren,
+                    Juan I. Sabatino,
+                    Juan I. Ubino
+                </span>
+            </p>
+        </article>
+    </section>
+    <section>
+        <h3 class="title"><time datetime="2017">2017</time></h3>
+        <article>
+            <h4>Romanza</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Song</span>
+            </p>
+            <p class="row">
+                <span>instruments:</span>
+                <span>Alto and Piano</span>
+            </p>
+        </article>
+        <article>
+            <h4>Prelude</h4>
+            <p class="row">
+                <span>genre:</span>
+                <span>Solo</span>
+            </p>
+            <p class="row">
+                <span>instrument:</span>
+                <span>Piano</span>
+            </p>
+        </article>
+    </section>
+</div>
+{{end}}
+{{define "footer"}}
+<footer>
+    <svg xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="icon lucide-mail"
+    >
+        <rect width="20" height="16" x="2" y="4" rx="2"/>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    </svg>
+    <small>
+        <a rel="noreferrer noopener"
+            target="_blank"
+            href="mailto:axelarielsaravia@gmail.com"
+        >
+            axelarielsaravia@gmail.com
+        </a>
+    </small>
+</footer>
+{{end}}
+{{define "style"}}
+<style>
+body>header {
+    display:flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1ch;
+}
+body>main {
+    margin-bottom: 50px;
+}
+.title {
+    position: sticky;
+    top: 0;
+    padding: 1ch 0;
+    overflow: hidden;
+    background: linear-gradient(0deg, transparent, var(--color-secondary) 40%);
+}
+.title::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 2px;
+    width: 1ch;
+    background: var(--color-primary);
+    translate: 0 2ch;
+}
+.title::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 2px;
+    background: var(--color-primary);
+    translate: 6ch 2ch;
+}
+.title time {
+    position: relative;
+    display: inline-block;
+    translate: 1.7ch 0;
+}
+h2, article {
+    padding: 2ch 1ch;
+    line-height: 1.5;
+}
+h4 {
+    margin: 0;
+}
+.row span:first-child {
+    text-decoration: underline;
+    text-underline-offset: 0.3ch;
+    margin-right: 0.5ch;
+}
+footer {
+    padding: 5ch 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1ch;
+}
+
+footer .icon {
+    width: 2ch;
+}
+/*Navigation Transition*/
+@view-transition {
+    navigation: auto;
+}
+::view-transition-group(root) {
+    animation-duration: 0.3s;
+}
+@keyframes move-out {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(-100%, -100%);
+    }
+}
+@keyframes move-in {
+    from {
+        transform: translate(100%, 100%);
+    }
+    to {
+        transform: translate(0, 0);
+    }
+}
+::view-transition-old(root) {
+    animation: 0.4s ease-in both move-out;
+
+}
+::view-transition-new(root) {
+    animation: 0.4s ease-in both move-in;
+}
+</style>
+{{end}}
