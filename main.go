@@ -235,7 +235,7 @@ func main() {
             fmt.Println("music was successfully minified");
         }
     }
-    if argsLen < argsCount + 1 || slices.Contains(os.Args[1:], "music") {
+    if argsLen < argsCount + 1 || slices.Contains(os.Args[1:], "404") {
         err := build(
             "../build/404.html",
             "404.page.html",
