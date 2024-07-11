@@ -24,7 +24,7 @@
     <section class="2024">
         <h3 class="title"><time datetime="2024">2024</time></h3>
         <article>
-            <h4>JCC, Just Compile my C</h4>
+            <h4 tabindex="0">JCC, Just Compile my C</h4>
             <p class="row">
                 <span>about:</span>
                 <span>This is my own wrapper to compile C with the GCC compiler</span>
@@ -48,7 +48,7 @@
             </p>
         </article>
         <article>
-            <h4>Data quick cleaner</h4>
+            <h4 tabindex="0">Data quick cleaner</h4>
             <p class="row">
                 <span>about:</span>
                 <span>A tool to remove page or browser data quickly</span>
@@ -76,7 +76,7 @@
             </p>
         </article>
         <article>
-            <h4>ws (working session)</h4>
+            <h4 tabindex="0">ws (working session)</h4>
             <p class="row">
                 <span>about:</span>
                 <span>
@@ -104,7 +104,7 @@
             </p>
         </article>
         <article>
-            <h4>hsuperprod <small>[[outdated, can be obsolete]]</small></h4>
+            <h4 tabindex="0">hsuperprod <small>[[outdated, can be obsolete]]</small></h4>
             <p class="row">
                 <span>about:</span>
                 <span>CLI tool for web data extraction from Argentinian supermarkets</span>
@@ -131,7 +131,7 @@
     <section class="2023">
         <h3 class="title"><time datetime="2023">2023</time></h3>
         <article>
-            <h4>Vanilla Movie</h4>
+            <h4 tabindex="0">Vanilla Movie</h4>
             <p class="row">
                 <span>about:</span>
                 <span>A movie tracker, inspired by Netflix</span>
@@ -159,7 +159,7 @@
             </p>
         </article>
         <article>
-            <h4>Bookmarks quick view</h4>
+            <h4 tabindex="0">Bookmarks quick view</h4>
             <p class="row">
                 <span>about:</span>
                 <span>View and manage browser bookmarks</span>
@@ -188,7 +188,7 @@
             </p>
         </article>
         <article>
-            <h4>Pixel Scroll</h4>
+            <h4 tabindex="0">Pixel Scroll</h4>
             <p class="row">
                 <span>about:</span>
                 <span>Scroll with pixel distance</span>
@@ -216,7 +216,7 @@
             </p>
         </article>
         <article>
-            <h4>History quick view</h4>
+            <h4 tabindex="0">History quick view</h4>
             <p class="row">
                 <span>about:</span>
                 <span>View and manage browser history data</span>
@@ -244,7 +244,7 @@
             </p>
         </article>
         <article>
-            <h4>Vanilla ToDo</h4>
+            <h4 tabindex="0">Vanilla ToDo</h4>
             <p class="row">
                 <span>about:</span>
                 <span>A todo app build with pure JavaScript</span>
@@ -272,7 +272,7 @@
             </p>
         </article>
         <article>
-            <h4>React ToDo</h4>
+            <h4 tabindex="0">React ToDo</h4>
             <p class="row">
                 <span>about:</span>
                 <span>A todo app build with React.js</span>
@@ -300,7 +300,7 @@
             </p>
         </article>
         <article>
-            <h4>inSets</h4>
+            <h4 tabindex="0">inSets</h4>
             <p class="row">
                 <span>about:</span>
                 <span>
@@ -337,7 +337,7 @@
     <section class="2022">
         <h3 class="title"><time datetime="2022">2022</time></h3>
         <article>
-            <h4>Insurance Producer Page</h4>
+            <h4 tabindex="0">Insurance Producer Page</h4>
             <p class="row">
                 <span>about:</span>
                 <span>This is a freelance work</span>
@@ -361,7 +361,7 @@
             </p>
         </article>
         <article>
-            <h4>JS Vanilla State Managment</h4>
+            <h4 tabindex="0">JS Vanilla State Managment</h4>
             <p class="row">
                 <span>about:</span>
                 <span>A JavaScript library to manage state and rendering html</span>
@@ -385,7 +385,7 @@
             </p>
         </article>
         <article>
-            <h4>Drum Machine</h4>
+            <h4 tabindex="0">Drum Machine</h4>
             <p class="row">
                 <span>type:</span>
                 <span>Web app</span>
@@ -405,7 +405,7 @@
             </p>
         </article>
         <article>
-            <h4>25+5 Clock</h4>
+            <h4 tabindex="0">25+5 Clock</h4>
             <p class="row">
                 <span>type:</span>
                 <span>Web app</span>
@@ -425,7 +425,7 @@
             </p>
         </article>
         <article>
-            <h4>Calculator</h4>
+            <h4 tabindex="0">Calculator</h4>
             <p class="row">
                 <span>type:</span>
                 <span>Web app</span>
@@ -445,7 +445,7 @@
             </p>
         </article>
         <article>
-            <h4>Random Quote Machine</h4>
+            <h4 tabindex="0">Random Quote Machine</h4>
             <p class="row">
                 <span>type:</span>
                 <span>Web app</span>
@@ -542,6 +542,11 @@ h2, article, .description {
 h4 {
     margin: 0;
 }
+h4[tabindex="0"]:focus-visible {
+    outline: none;
+    text-decoration: underline wavy var(--color-link);
+}
+
 .row span:first-child {
     text-decoration: underline;
     text-underline-offset: 0.3ch;
