@@ -12,36 +12,6 @@ type Data struct{
     OriginURL string
 }
 
-func build(
-    path, tempName string,
-    tempFiles []string,
-    data any,
-) (err error) {
-    var home *os.File
-    home, err = os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
-    if err != nil {
-        return err
-    }
-    defer home.Close()
-
-    var homeTmpl *template.Template
-    homeTmpl, err = template.New(tempName).ParseFiles(tempFiles...)
-    if err != nil {
-        return err
-    }
-
-    err = home.Truncate(0)
-    if err != nil {
-        return err
-    }
-
-    err = homeTmpl.Execute(home, data)
-    if err != nil {
-        return err
-    }
-
-    return nil
-}
 
 func minifyHTML(source string) (err error) {
     var f, temp *os.File
@@ -119,143 +89,200 @@ func minifyHTML(source string) (err error) {
     return nil
 }
 
+func build(
+    path, tempName string,
+    tempFiles []string,
+    data any,
+) (err error) {
+    var home *os.File
+    home, err = os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
+    if err != nil {
+        return err
+    }
+    defer home.Close()
+
+    var homeTmpl *template.Template
+    homeTmpl, err = template.New(tempName).ParseFiles(tempFiles...)
+    if err != nil {
+        return err
+    }
+
+    err = home.Truncate(0)
+    if err != nil {
+        return err
+    }
+
+    err = homeTmpl.Execute(home, data)
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
+const (
+    ARG_HELP = iota
+    ARG_PROD
+    ARG_MINI
+    ARG_HOME
+    ARG_MUSIC
+    ARG_DEV
+    ARG_404
+    ARG_LEN
+)
+
+var args = [ARG_LEN]string{
+    ARG_HELP: "help",
+    ARG_PROD: "prod",
+    ARG_MINI: "mini",
+    ARG_HOME: "home",
+    ARG_MUSIC: "music",
+    ARG_DEV: "dev",
+    ARG_404: "404",
+}
+var helpMessages = [ARG_LEN]string{
+    ARG_HELP: "this text",
+    ARG_PROD: "adds production data",
+    ARG_MINI: "minify html files",
+    ARG_HOME: "build file",
+    ARG_MUSIC: "build file",
+    ARG_DEV: "build file",
+    ARG_404: "build file",
+}
+
+const (
+    BUILDER_HOME = iota
+    BUILDER_MUSIC
+    BUILDER_DEV
+    BUILDER_404
+    BUILDER_LEN
+)
+
+var builders = [BUILDER_LEN]struct{
+    arg string
+    dir string
+    dest string
+    src string
+    templates []string
+}{
+    {
+        arg: args[ARG_HOME],
+        dir: "",
+        dest: "../build/index.html",
+        src: "home.page.html",
+        templates: []string{
+            "./templates/base.layout.html",
+            "./templates/home.page.html",
+        },
+    }, {
+        arg: args[ARG_MUSIC],
+        dir: "../build/music/",
+        dest: "../build/music/index.html",
+        src: "music.page.html",
+        templates: []string{
+            "./templates/base.layout.html",
+            "./templates/music.page.html",
+        },
+    }, {
+        arg: args[ARG_DEV],
+        dir: "../build/dev/",
+        dest: "../build/dev/index.html",
+        src: "dev.page.html",
+        templates: []string{
+            "./templates/base.layout.html",
+            "./templates/dev.page.html",
+        },
+    }, {
+        arg: args[ARG_404],
+        dir: "",
+        dest: "../build/404.html",
+        src: "404.page.html",
+        templates: []string{
+            "./templates/base.layout.html",
+            "./templates/404.page.html",
+        },
+    },
+}
+
 func main() {
     var argsCount = 1
     var argsLen int = len(os.Args)
-    if slices.Contains(os.Args[1:], "help") {
+    if slices.Contains(os.Args[1:], args[ARG_HELP]) {
         fmt.Print(
-            "Usage: <this> [OPTIONS]\n",
+            "Usage: build [OPTIONS]\n",
             "\n",
             "Options:\n",
-            "    prod   production (adds production data)\n",
-            "    mini   minify html files\n",
+        )
+        for i := range ARG_LEN {
+            fmt.Println("\t",args[i],"\t",helpMessages[i])
+        }
+        fmt.Print(
             "\n",
-            "    home   build home html file on ../build/\n",
-            "    dev    build dev html file on ../build/dev/\n",
-            "    music  build music html file on ../build/music/\n",
+            "If no build file option added, all files will be build\n",
             "\n",
         )
         return
     }
 
     var data Data
-    if argsLen > argsCount && slices.Contains(os.Args[1:], "prod") {
+    if argsLen > argsCount && slices.Contains(os.Args[1:], args[ARG_PROD]) {
         argsCount += 1
         data = Data{OriginURL: "https://axelarielsaravia.github.io/"}
+        fmt.Println("[[Production]] data")
     } else {
         data = Data{OriginURL: "/"}
+        fmt.Println("[[Development]] data")
     }
 
     var miniArg = false
-    if argsLen > argsCount && slices.Contains(os.Args[1:], "mini") {
+    if argsLen > argsCount && slices.Contains(os.Args[1:], args[ARG_MINI]) {
         argsCount += 1
         miniArg = true
     }
 
-    if argsLen < argsCount + 1 || slices.Contains(os.Args[1:], "home") {
-        err := build(
-            "../build/index.html",
-            "home.page.html",
-            []string{
-                "./templates/base.layout.html",
-                "./templates/home.page.html",
-            },
-            data,
-        )
-        if err != nil {
-            panic(err)
-        }
-        fmt.Println("Home was successfully created");
-
-        if miniArg {
-            err = minifyHTML("../build/index.html")
-            if err != nil {
-                panic(err)
-            }
-            fmt.Println("Home was successfully minified");
-        }
+    var buildAll bool = false
+    if argsLen < argsCount + 1 {
+        buildAll = true
     }
-    if argsLen < argsCount + 1 || slices.Contains(os.Args[1:], "dev") {
-        _, err := os.Stat("../build/dev/")
-        if err != nil {
-            err = os.Mkdir("../build/dev", 0750)
-            if err != nil {
-                panic(err)
+    Args := os.Args[argsCount:]
+
+    builderIdx := 0
+    for builderIdx < BUILDER_LEN {
+        builder := builders[builderIdx]
+        builderIdx += 1
+
+        if !buildAll {
+            if (len(Args) > 0) {
+                break
+            }
+            if j := slices.Index(Args, builder.arg); j == -1 {
+                continue
+            } else {
+                Args[j],Args[len(Args)-1] = Args[len(Args)-1], Args[j]
+                Args = Args[:len(Args)-1]
             }
         }
-        err = build(
-            "../build/dev/index.html",
-            "dev.page.html",
-            []string{
-                "./templates/base.layout.html",
-                "./templates/dev.page.html",
-            },
-            data,
-        )
+        if builder.dir != "" {
+            _, err := os.Stat(builder.dir)
+            if err != nil {
+                err = os.Mkdir(builder.dir, 0750)
+                if err != nil {
+                    panic(err)
+                }
+            }
+        }
+        err := build(builder.dest, builder.src, builder.templates, data)
         if err != nil {
             panic(err)
         }
-        fmt.Println("dev was successfully created");
+        fmt.Println(builder.arg, "was successfully created");
 
         if miniArg {
             err = minifyHTML("../build/dev/index.html")
             if err != nil {
                 panic(err)
             }
-            fmt.Println("dev was successfully minified");
-        }
-    }
-    if argsLen < argsCount + 1 || slices.Contains(os.Args[1:], "music") {
-        _, err := os.Stat("../build/music/")
-        if err != nil {
-            err = os.Mkdir("../build/music/", 0750)
-            if err != nil {
-                panic(err)
-            }
-        }
-        err = build(
-            "../build/music/index.html",
-            "music.page.html",
-            []string{
-                "./templates/base.layout.html",
-                "./templates/music.page.html",
-            },
-            data,
-        )
-        if err != nil {
-            panic(err)
-        }
-        fmt.Println("music was successfully created");
-
-        if miniArg {
-            err = minifyHTML("../build/music/index.html")
-            if err != nil {
-                panic(err)
-            }
-            fmt.Println("music was successfully minified");
-        }
-    }
-    if argsLen < argsCount + 1 || slices.Contains(os.Args[1:], "404") {
-        err := build(
-            "../build/404.html",
-            "404.page.html",
-            []string{
-                "./templates/base.layout.html",
-                "./templates/404.page.html",
-            },
-            data,
-        )
-        if err != nil {
-            panic(err)
-        }
-        fmt.Println("404 was successfully created");
-
-        if miniArg {
-            err = minifyHTML("../build/404.html")
-            if err != nil {
-                panic(err)
-            }
-            fmt.Println("404 was successfully minified");
+            fmt.Println(builder.arg, "was successfully minified");
         }
     }
 }
