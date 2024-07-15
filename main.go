@@ -18,7 +18,7 @@ func minifyHTML(source string) (err error) {
 
     temp, err = os.Create(source+".temp.html")
     if err != nil {
-        temp, err = os.OpenFile(source+".temp.html", os.O_WRONLY|os.O_APPEND, 0644)
+        temp, err = os.OpenFile(source+".temp.html", os.O_WRONLY|os.O_APPEND, 0o644)
         if err != nil {
             return err
         }
@@ -95,7 +95,7 @@ func build(
     data any,
 ) (err error) {
     var home *os.File
-    home, err = os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
+    home, err = os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0o644)
     if err != nil {
         return err
     }
@@ -265,7 +265,7 @@ func main() {
         if builder.dir != "" {
             _, err := os.Stat(builder.dir)
             if err != nil {
-                err = os.Mkdir(builder.dir, 0750)
+                err = os.Mkdir(builder.dir, 0o750)
                 if err != nil {
                     panic(err)
                 }
