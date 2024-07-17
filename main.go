@@ -209,7 +209,7 @@ func main() {
     var argsLen int = len(os.Args)
     if slices.Contains(os.Args[1:], args[ARG_HELP]) {
         fmt.Print(
-            "Usage: build [OPTIONS]\n",
+            "Usage: "+os.Args[0]+" [OPTIONS]\n",
             "\n",
             "Options:\n",
         )
