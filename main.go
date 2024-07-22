@@ -132,22 +132,22 @@ const (
 )
 
 var args = [ARG_LEN]string{
-    ARG_HELP: "help",
-    ARG_PROD: "prod",
-    ARG_MINI: "mini",
-    ARG_HOME: "home",
-    ARG_MUSIC: "music",
-    ARG_DEV: "dev",
-    ARG_404: "404",
+    ARG_HELP:   "help",
+    ARG_PROD:   "prod",
+    ARG_MINI:   "mini",
+    ARG_HOME:   "home",
+    ARG_MUSIC:  "music",
+    ARG_DEV:    "dev",
+    ARG_404:    "404",
 }
 var helpMessages = [ARG_LEN]string{
-    ARG_HELP: "this text",
-    ARG_PROD: "adds production data",
-    ARG_MINI: "minify html files",
-    ARG_HOME: "build file",
-    ARG_MUSIC: "build file",
-    ARG_DEV: "build file",
-    ARG_404: "build file",
+    ARG_HELP:   "this text",
+    ARG_PROD:   "adds production data",
+    ARG_MINI:   "minify html files",
+    ARG_HOME:   "build file",
+    ARG_MUSIC:  "build file",
+    ARG_DEV:    "build file",
+    ARG_404:    "build file",
 }
 
 const (
@@ -205,8 +205,6 @@ var builders = [BUILDER_LEN]struct{
 }
 
 func main() {
-    var argsCount = 1
-    var argsLen int = len(os.Args)
     if slices.Contains(os.Args[1:], args[ARG_HELP]) {
         fmt.Print(
             "Usage: "+os.Args[0]+" [OPTIONS]\n",
@@ -224,27 +222,38 @@ func main() {
         return
     }
 
-    var data Data
-    if argsLen > argsCount && slices.Contains(os.Args[1:], args[ARG_PROD]) {
-        argsCount += 1
-        data = Data{OriginURL: "https://axelarielsaravia.github.io/"}
-        fmt.Println("[[Production]] data")
-    } else {
-        data = Data{OriginURL: "/"}
-        fmt.Println("[[Development]] data")
+    var Args []string = os.Args[1:]
+    var data Data = Data{OriginURL: "/"}
+
+    if argsLen := len(Args); argsLen > 0 {
+        var i int = slices.Index(Args[:], args[ARG_PROD])
+        if i == 0 {
+            data = Data{OriginURL: "https://axelarielsaravia.github.io/"}
+            fmt.Println("[[Production]] data")
+
+            if argsLen > 1 {
+                Args[0], Args[i] = Args[i], Args[0]
+            }
+            Args = Args[1:]
+        }
     }
 
     var miniArg = false
-    if argsLen > argsCount && slices.Contains(os.Args[1:], args[ARG_MINI]) {
-        argsCount += 1
-        miniArg = true
+    if argsLen := len(Args); argsLen > 0 {
+        var i int = slices.Index(Args[:], args[ARG_MINI])
+        if i == 0 {
+            miniArg = true
+            if argsLen > 1 {
+                Args[0], Args[i] = Args[i], Args[0]
+            }
+            Args = Args[1:]
+        }
     }
 
     var buildAll bool = false
-    if argsLen < argsCount + 1 {
+    if len(Args) > 0 {
         buildAll = true
     }
-    Args := os.Args[argsCount:]
 
     builderIdx := 0
     for builderIdx < BUILDER_LEN {
@@ -278,7 +287,7 @@ func main() {
         fmt.Println(builder.arg, "was successfully created");
 
         if miniArg {
-            err = minifyHTML("../build/dev/index.html")
+            err = minifyHTML(builder.dest)
             if err != nil {
                 panic(err)
             }
