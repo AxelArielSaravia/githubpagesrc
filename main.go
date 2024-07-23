@@ -205,7 +205,8 @@ var builders = [BUILDER_LEN]struct{
 }
 
 func main() {
-    if slices.Contains(os.Args[1:], args[ARG_HELP]) {
+    var Args []string = os.Args[1:]
+    if slices.Contains(Args, args[ARG_HELP]) {
         fmt.Print(
             "Usage: "+os.Args[0]+" [OPTIONS]\n",
             "\n",
@@ -222,7 +223,6 @@ func main() {
         return
     }
 
-    var Args []string = os.Args[1:]
     var data Data = Data{OriginURL: "/"}
 
     if argsLen := len(Args); argsLen > 0 {
@@ -251,7 +251,7 @@ func main() {
     }
 
     var buildAll bool = false
-    if len(Args) > 0 {
+    if len(Args) == 0 {
         buildAll = true
     }
 

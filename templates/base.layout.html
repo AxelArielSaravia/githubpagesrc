@@ -206,7 +206,6 @@
                 width: 2ch;
             }
 
-
             @media (hover: hover) and (pointer: fine) {
                 a {
                     color: var(--color-primary);
@@ -215,7 +214,7 @@
                     color: var(--color-link);
                 }
                 a:hover::selection {
-                    color: var(--color-primary);
+                    color: color-mix(in srgb, var(--color-link) 50%, var(--color-primary));
                     text-decoration: underline;
                 }
             }
@@ -225,7 +224,7 @@
                     color: var(--color-link);
                 }
                 a::selection {
-                    color: var(--color-primary);
+                    color: color-mix(in srgb, var(--color-link) 50%, var(--color-primary));
                     text-decoration: underline;
                 }
             }
