@@ -34,7 +34,7 @@ func minifyHTML(source string) (err error) {
     }
 
     var r *bufio.Reader = bufio.NewReader(f)
-    var stylemode bool = false
+    var othermode bool = false
     var addSpace bool = true
     for {
         line, err := r.ReadBytes('\n')
@@ -47,22 +47,21 @@ func minifyHTML(source string) (err error) {
             }
             subline := line[i:len(line)-1]
             if line[i] == '<' {
-                if slices.Compare(subline, []byte("<style>")) == 0 {
-                    stylemode = true
+                if slices.Compare(subline, []byte("<style>")) == 0 &&
+                slices.Compare(subline, []byte("<script type=\"modal\">")) == 0 {
+                    othermode = true
+                } else if slices.Compare(subline, []byte("</style>")) == 0 &&
+                slices.Compare(subline, []byte("</script>")) == 0 {
+                    othermode = false
+                } else {
+                    endbyte := line[len(line)-1]
+                    if endbyte == '>' {
+                        addSpace = false
+                    }
                 }
-                if slices.Compare(subline, []byte("</style>")) == 0 {
-                    stylemode = false
-                }
-
-                endbyte := line[len(line)-1]
-                if endbyte == '>' {
-                    addSpace = false
-                }
-
-
-            } else if !stylemode &&
-                line[i] != '>' &&
-                slices.Compare(line[i:i+1], []byte("/>")) != 0 {
+            } else if !othermode &&
+            line[i] != '>' &&
+            slices.Compare(line[i:i+1], []byte("/>")) != 0 {
 
                 if addSpace {
                     temp.Write([]byte(" "))
@@ -165,7 +164,7 @@ var builders = [BUILDER_LEN]struct{
     src string
     templates []string
 }{
-    {
+    BUILDER_HOME: {
         arg: args[ARG_HOME],
         dir: "",
         dest: "../build/index.html",
@@ -174,7 +173,8 @@ var builders = [BUILDER_LEN]struct{
             "./templates/base.layout.html",
             "./templates/home.page.html",
         },
-    }, {
+    },
+    BUILDER_MUSIC: {
         arg: args[ARG_MUSIC],
         dir: "../build/music/",
         dest: "../build/music/index.html",
@@ -183,7 +183,8 @@ var builders = [BUILDER_LEN]struct{
             "./templates/base.layout.html",
             "./templates/music.page.html",
         },
-    }, {
+    },
+    BUILDER_DEV: {
         arg: args[ARG_DEV],
         dir: "../build/dev/",
         dest: "../build/dev/index.html",
@@ -192,7 +193,8 @@ var builders = [BUILDER_LEN]struct{
             "./templates/base.layout.html",
             "./templates/dev.page.html",
         },
-    }, {
+    },
+    BUILDER_404: {
         arg: args[ARG_404],
         dir: "",
         dest: "../build/404.html",
@@ -227,7 +229,7 @@ func main() {
 
     if argsLen := len(Args); argsLen > 0 {
         var i int = slices.Index(Args[:], args[ARG_PROD])
-        if i == 0 {
+        if i != -1 {
             data = Data{OriginURL: "https://axelarielsaravia.github.io/"}
             fmt.Println("[[Production]] data")
 
@@ -241,7 +243,7 @@ func main() {
     var miniArg = false
     if argsLen := len(Args); argsLen > 0 {
         var i int = slices.Index(Args[:], args[ARG_MINI])
-        if i == 0 {
+        if i != -1 {
             miniArg = true
             if argsLen > 1 {
                 Args[0], Args[i] = Args[i], Args[0]
@@ -261,7 +263,7 @@ func main() {
         builderIdx += 1
 
         if !buildAll {
-            if (len(Args) > 0) {
+            if (len(Args) == 0) {
                 break
             }
             if j := slices.Index(Args, builder.arg); j == -1 {

@@ -69,7 +69,7 @@
                     --color-secondary: var(--color-black);
                     color-scheme: dark;
                 }
-                :root:has(.theme [type="checkbox"]:checked) {
+                :root.light {
                     --color-selection: var(--color-link-dark);
                     --color-focus: var(--color-focus-dark);
                     --color-link: var(--color-link-light);
@@ -77,8 +77,8 @@
                     --color-secondary: var(--color-white);
                     color-scheme: light;
                 }
-                .theme [type="checkbox"]:not(:checked)~.lucide-moon,
-                .theme [type="checkbox"]:checked~.lucide-sun {
+                :root:not(.light) .theme .lucide-moon,
+                :root.light .theme .lucide-sun {
                     display: none;
                 }
             }
@@ -90,15 +90,15 @@
                     --color-secondary: var(--color-white);
                     color-scheme: light;
                 }
-                :root:has(.theme [type="checkbox"]:checked) {
+                :root.dark {
                     --color-selection: var(--color-link-light);
                     --color-link: var(--color-link-dark);
                     --color-primary: var(--color-white);
                     --color-secondary: var(--color-black);
                     color-scheme: dark;
                 }
-                .theme [type="checkbox"]:not(:checked)~.lucide-sun,
-                .theme [type="checkbox"]:checked~.lucide-moon {
+                :root:not(.dark) .theme .lucide-sun,
+                :root.dark .theme .lucide-moon {
                     display: none;
                 }
             }
@@ -167,18 +167,23 @@
             }
             .button {
                 box-sizing: border-box;
+                background: transparent;
+                font-size: inherit;
                 display: flex;
                 cursor: pointer;
                 margin: 0;
                 border: 0.2ch solid var(--color-primary);
                 border-radius: 1ch;
                 padding: 4px;
+                color: inherit
             }
 
-            a:focus-visible,
-            .theme [type="checkbox"]:focus-visible~.icon {
+            a:focus-visible {
                 outline: 2px solid var(--color-link);
                 border-radius: 0.2ch;
+            }
+            button.theme:focus-visible {
+                outline: 2px solid var(--color-link);
             }
 
             body>header {
@@ -254,9 +259,8 @@
                     </svg>
                     Github
                 </a>
-                <label class="button theme" id="button-theme">
+                <button class="button theme" id="button-theme">
                     <p class="sr-only">Theme switcher</p>
-                    <input type="checkbox" class="sr-only">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="icon lucide-sun"
                         viewBox="0 0 24 24"
@@ -287,7 +291,38 @@
                         stroke-linejoin="round"
                     ><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
                     <span class="sr-only lucide-moon">dark</span>
-                </label>
+                </button>
+                <script type="module">
+                    (()=>{
+                        const T_DARK = "dark";
+                        const T_LIGHT = "light";
+                        let theme = T_LIGHT;
+
+                        let storage = localStorage.getItem("theme");
+                        if (storage !== T_DARK && storage !== T_LIGHT) {
+                            if (window.matchMedia !== undefined
+                            && window.matchMedia("(prefers-color-scheme: dark)").matches
+                            ) {
+                                theme = T_DARK;
+                            }
+                            localStorage.setItem("theme", theme);
+                        } else {
+                            theme = storage;
+                        }
+                        document.firstElementChild.className = theme;
+
+                        const ThemeButton = document.getElementById("button-theme");
+                        ThemeButton?.addEventListener("click", function () {
+                            if (theme === T_DARK) {
+                                theme = T_LIGHT;
+                            } else {
+                                theme = T_DARK;
+                            }
+                            document.firstElementChild.className = theme;
+                            localStorage.setItem("theme", theme);
+                        })
+                    })()
+                </script>
             </div>
         </header>
         <main>{{block "main" .}}{{end}}</main>
